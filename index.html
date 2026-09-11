@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LexiAI - English Dictionary</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <div class="logo-icon">L</div>
+
+                <div>
+                    <h1>LexiAI</h1>
+                    <p>AI English Dictionary</p>
+                </div>
+            </div>
+
+            <button class="profile-btn">👤</button>
+        </header>
+
+
+        <!-- Welcome -->
+        <section class="welcome">
+            <p class="small-text">WELCOME BACK 👋</p>
+
+            <h2>Learn English<br>
+                <span>smarter with AI.</span>
+            </h2>
+
+            <p class="description">
+                Discover meanings, examples and synonyms instantly.
+            </p>
+        </section>
+
+
+        <!-- Search -->
+        <section class="search-container">
+
+            <div class="search-box">
+
+                <span class="search-icon">⌕</span>
+
+                <input
+                    type="text"
+                    placeholder="Search an English word..."
+                    id="wordInput"
+                >
+
+                <button class="voice-btn">🎙</button>
+
+            </div>
+
+            <button class="search-btn" onclick="searchWord()">
+                Search with AI ✨
+            </button>
+
+        </section>
+
+
+        <!-- Recent -->
+        <section class="section">
+
+            <div class="section-title">
+                <h3>Recent words</h3>
+                <button>See all</button>
+            </div>
+
+
+            <!-- Word Card -->
+            <div class="word-card" id="resultCard">
+
+                <div class="word-top">
+
+                    <div>
+                        <h2>Breakthrough</h2>
+                        <p class="word-type">noun • /ˈbreɪkθruː/</p>
+                    </div>
+
+                    <button class="favorite">☆</button>
+
+                </div>
+
+
+                <div class="meaning">
+
+                    <span>🇺🇿</span>
+
+                    <div>
+                        <p class="meaning-title">
+                            katta yutuq, muhim kashfiyot
+                        </p>
+
+                        <p class="definition">
+                            An important discovery or development
+                            that helps something progress.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="example">
+
+                    <div class="example-label">
+                        EXAMPLE
+                    </div>
+
+                    <p>
+                        “Scientists have made a major
+                        <b>breakthrough</b>.”
+                    </p>
+
+                </div>
+
+
+                <div class="synonyms">
+
+                    <span>Synonyms</span>
+
+                    <div>
+                        <button>achievement</button>
+                        <button>discovery</button>
+                        <button>progress</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+
+            <button class="active">
+                <span>⌂</span>
+                <small>Home</small>
+            </button>
+
+            <button>
+                <span>☆</span>
+                <small>Saved</small>
+            </button>
+
+            <button>
+                <span>📚</span>
+                <small>Words</small>
+            </button>
+
+            <button>
+                <span>👤</span>
+                <small>Profile</small>
+            </button>
+
+        </nav>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+<script src="script.js"></script>
+
+  </html>
