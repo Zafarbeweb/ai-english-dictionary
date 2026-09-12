@@ -1,13 +1,15 @@
 async function searchWord() {
     const input = document.getElementById("wordInput");
-    const word = input.value.trim();
     const card = document.getElementById("resultCard");
+
+    const word = input.value.trim();
 
     if (!word) {
         alert("Please enter an English word.");
         return;
     }
 
+    // Loading
     card.innerHTML = `
         <div class="loading">
             <p>🔎 Finding "${word}"...</p>
@@ -26,27 +28,32 @@ async function searchWord() {
         }
 
         const result = data[0];
-        const meaning = result.meanings?.[0];
-        const definition = meaning?.definitions?.[0];
 
-        if (!meaning || !definition) {
+        if (!result || !result.meanings || !result.meanings.length) {
             throw new Error("No definition found");
         }
 
-        const synonyms =
-            definition.synonyms?.length
-                ? definition.synonyms
-                : meaning.synonyms || [];
+        const meaning = result.meanings[0];
+        const definition = meaning.definitions[0];
 
-        const synonymHTML = synonyms.length
-            ? synonyms
-                .slice(0, 5)
-                .map(word => `<button>${word}</button>`)
+        // Synonyms
+        const synonyms = [
+            ...(definition.synonyms || []),
+            ...(meaning.synonyms || [])
+        ];
+
+        const uniqueSynonyms = [...new Set(synonyms)].slice(0, 5);
+
+        const synonymHTML = uniqueSynonyms.length
+            ? uniqueSynonyms
+                .map(synonym => `<button>${synonym}</button>`)
                 .join("")
-            : "<button>No synonyms</button>";
+            : "<span>No synonyms available</span>";
 
+        // Result card
         card.innerHTML = `
             <div class="word-top">
+
                 <div>
                     <h2>${result.word}</h2>
 
@@ -59,9 +66,12 @@ async function searchWord() {
                 </div>
 
                 <button class="favorite">☆</button>
+
             </div>
 
+
             <div class="meaning">
+
                 <span>🇬🇧</span>
 
                 <div>
@@ -73,9 +83,12 @@ async function searchWord() {
                         English definition
                     </p>
                 </div>
+
             </div>
 
+
             <div class="example">
+
                 <div class="example-label">
                     EXAMPLE
                 </div>
@@ -84,14 +97,18 @@ async function searchWord() {
                     ${definition.example ||
                     "No example sentence available."}
                 </p>
+
             </div>
 
+
             <div class="synonyms">
+
                 <span>Synonyms</span>
 
                 <div>
                     ${synonymHTML}
                 </div>
+
             </div>
         `;
 
@@ -101,13 +118,17 @@ async function searchWord() {
 
         card.innerHTML = `
             <div class="error">
-                <h3>Word not found 😕</h3>
+
+                <h3>
+                    Word search failed 😕
+                </h3>
 
                 <p>
                     ${error.message ||
-                    "Something went wrong. Please try again."}
+                    "The dictionary service could not be reached."}
                 </p>
+
             </div>
         `;
     }
-            }
+}
