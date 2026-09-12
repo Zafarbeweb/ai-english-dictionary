@@ -1,13 +1,12 @@
 async function searchWord() {
     const input = document.getElementById("wordInput");
     const word = input.value.trim();
+    const card = document.getElementById("resultCard");
 
     if (!word) {
         alert("Please enter an English word.");
         return;
     }
-
-    const card = document.getElementById("resultCard");
 
     card.innerHTML = `
         <div class="loading">
@@ -16,26 +15,23 @@ async function searchWord() {
     `;
 
     try {
-        const proxy =
-            "https://api.allorigins.win/raw?url=";
-
-        const api =
-            "https://api.dictionaryapi.dev/api/v2/entries/en/" +
-            encodeURIComponent(word);
-
         const response = await fetch(
-            proxy + encodeURIComponent(api)
+            `/api/dictionary?word=${encodeURIComponent(word)}`
         );
-
-        if (!response.ok) {
-            throw new Error("API error");
-        }
 
         const data = await response.json();
 
+        if (!response.ok) {
+            throw new Error(data.error || "Word not found");
+        }
+
         const result = data[0];
-        const meaning = result.meanings[0];
-        const definition = meaning.definitions[0];
+        const meaning = result.meanings?.[0];
+        const definition = meaning?.definitions?.[0];
+
+        if (!meaning || !definition) {
+            throw new Error("No definition found");
+        }
 
         const synonyms =
             definition.synonyms?.length
@@ -53,9 +49,12 @@ async function searchWord() {
             <div class="word-top">
                 <div>
                     <h2>${result.word}</h2>
+
                     <p class="word-type">
                         ${meaning.partOfSpeech || "word"}
-                        ${result.phonetic ? " • " + result.phonetic : ""}
+                        ${result.phonetic
+                            ? " • " + result.phonetic
+                            : ""}
                     </p>
                 </div>
 
@@ -68,3 +67,47 @@ async function searchWord() {
                 <div>
                     <p class="meaning-title">
                         ${definition.definition}
+                    </p>
+
+                    <p class="definition">
+                        English definition
+                    </p>
+                </div>
+            </div>
+
+            <div class="example">
+                <div class="example-label">
+                    EXAMPLE
+                </div>
+
+                <p>
+                    ${definition.example ||
+                    "No example sentence available."}
+                </p>
+            </div>
+
+            <div class="synonyms">
+                <span>Synonyms</span>
+
+                <div>
+                    ${synonymHTML}
+                </div>
+            </div>
+        `;
+
+    } catch (error) {
+
+        console.error(error);
+
+        card.innerHTML = `
+            <div class="error">
+                <h3>Word not found 😕</h3>
+
+                <p>
+                    ${error.message ||
+                    "Something went wrong. Please try again."}
+                </p>
+            </div>
+        `;
+    }
+                }
