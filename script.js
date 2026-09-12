@@ -110,4 +110,4 @@ async function searchWord() {
             </div>
         `;
     }
-                }
+            }
