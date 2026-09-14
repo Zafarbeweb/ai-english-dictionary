@@ -36,6 +36,13 @@ async function searchWord() {
         const meaning = result.meanings[0];
         const definition = meaning.definitions[0];
 
+const example =
+    meaning.definitions.find(item => item.example)?.example ||
+    result.meanings
+        .flatMap(m => m.definitions)
+        .find(item => item.example)?.example ||
+    "No example sentence available.";
+
         // Synonyms
         const synonyms = [
             ...(definition.synonyms || []),
@@ -94,8 +101,7 @@ async function searchWord() {
                 </div>
 
                 <p>
-                    ${definition.example ||
-                    "No example sentence available."}
+                    ${definition.example}
                 </p>
 
             </div>
