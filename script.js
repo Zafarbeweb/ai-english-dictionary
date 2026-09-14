@@ -1,3 +1,4 @@
+let audio = "";
 async function searchWord() {
     const input = document.getElementById("wordInput");
     const card = document.getElementById("resultCard");
@@ -137,4 +138,13 @@ const example =
             </div>
         `;
     }
+}
+function playAudio() {
+    if (!audio) {
+        alert("Pronunciation audio is not available.");
+        return;
+    }
+
+    const sound = new Audio(audio);
+    sound.play();
 }
