@@ -63,7 +63,13 @@ const example =
             <div class="word-top">
 
                 <div>
-                    <h2>${result.word}</h2>
+                    <div class="word-title">
+    <h2>${result.word}</h2>
+
+    <button class="pronunciation" onclick="playAudio()">
+        🔊
+    </button>
+</div>
 
                     <p class="word-type">
                         ${meaning.partOfSpeech || "word"}
@@ -73,7 +79,8 @@ const example =
                     </p>
                 </div>
 
-                <button class="favorite">☆</button>
+                <button class="favorite">☆
+                </button>
 
             </div>
 
