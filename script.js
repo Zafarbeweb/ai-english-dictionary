@@ -101,7 +101,7 @@ const example =
                 </div>
 
                 <p>
-                    ${definition.example}
+                   ${example || "No example sentence available."} 
                 </p>
 
             </div>
